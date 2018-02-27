@@ -1,25 +1,40 @@
 <!DOCTYPE html>
 <html>
- <head>
- <title>Register Business</title>
- <link rel="stylesheet" href="css/bootstrap.min.css">
- <link rel="stylesheet" href="css/style.css">
- </head>
- <body>
-     <div class="register_bs">
- <div class="container">
- <div class="col-md-5 col-md-offset-4">
-     <h1>Register Business</h1>
-     <form action="" id="bsform">
-      <label for="business_title"><b>Business Title</b></label><br>
-      <input type="text" class="form-control" placeholder="Enter business title"><br><br>
+    <head>
+        <title>Register Business</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div id="myNavbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand">WeConnect</a>
+                </div>
+                <div class="nav navbar-nav navbar-right">
+                    <li><a href="business_show.html">Business Profile</a></li>
+                    <li><a href="business_index.html">Businesses</a></li>
+                    <li> <a href="update_bs.html">Update Business</a></li>
+     <li><a href="register_bs.html">Register Business</a></li>
+                    <li><a href="login.html">Login</a></li>
 
-      <label for="business_description"><b>Business Description</b></label><br>
-      <textarea id="bsform" class="form-control" name="business_description" cols="30" rows="10" placeholder=" Add Business description"></textarea><br><br>
-      <input type="submit" value="register business" class="btn btn-primary">
-     </form>
- </div>
- </div>
- </div>
- </body>
+                </div>
+            </div>
+        </div>
+        <div class="register_bs">
+            <div class="container">
+                <div class="col-md-5 col-md-offset-4">
+                    <h1>Register Business</h1>
+                    <form action="" id="bsform">
+                        <label for="business_title"><b>Business Title</b></label><br>
+                        <input type="text" class="form-control" placeholder="Enter business title"><br><br>
+
+                        <label for="business_description"><b>Business Description</b></label><br>
+                        <textarea id="bsform" class="form-control" name="business_description" cols="30" rows="10" placeholder=" Add Business description"></textarea><br><br>
+                        <input type="submit" value="register business" class="btn btn-primary">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
