@@ -6,6 +6,53 @@ body {
     width: 500px;
 }
 
+/*business-show */
+@media(max-width: 768px) {
+    .profile {
+        padding: 30px;
+    }
+}
+
+/*businesses*/
 #businesses {
     padding:50px 0 50px;
+}
+
+@media(max-width: 768px){
+    .businesses {
+        padding: 30px;
+    }
+
+    #search {
+         width: 180px;
+    }
+}
+
+/*login */
+@media(max-width: 768px) {
+    .login {
+        padding: 30px;
+    }
+}
+
+/*signup*/
+@media(max-width: 768px) {
+    .signup {
+        padding: 30px;
+    }
+}
+
+/*business update*/
+@media(max-width: 768px) {
+    .update_bs {
+        padding: 30px;
+    }
+}
+
+
+/*business update*/
+@media(max-width: 768px) {
+    .register_bs {
+        padding: 30px;
+    }
 }
