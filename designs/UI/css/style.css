@@ -70,5 +70,18 @@ body {
      background-position: center center;
      background-repeat: no-repeat;
      background-size: cover;
+
+     
      
 }
+
+.home {
+     padding: 200px 0 200px;
+     text-align: center;
+
+     p {
+         font-family: ubuntu;
+         font-size: 35px;
+     }
+
+    }
