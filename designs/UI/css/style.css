@@ -1,0 +1,87 @@
+body {
+    background-color: #A3E0CD;
+}
+
+.businesses, .login ,.signup, .update_bs,
+.register_bs, .profile, #businesses {
+    margin-top: 50px;
+}
+
+#search {
+    width: 500px;
+}
+
+/*business-show */
+@media(max-width: 768px) {
+    .profile {
+        padding: 30px;
+    }
+}
+
+/*businesses*/
+#businesses {
+    padding:50px 0 50px;
+}
+
+@media(max-width: 768px){
+    .businesses {
+        padding: 30px;
+    }
+
+    #search {
+         width: 180px;
+    }
+}
+
+/*login */
+@media(max-width: 768px) {
+    .login {
+        padding: 30px;
+    }
+}
+
+/*signup*/
+@media(max-width: 768px) {
+    .signup {
+        padding: 30px;
+    }
+}
+
+/*business update*/
+@media(max-width: 768px) {
+    .update_bs {
+        padding: 30px;
+    }
+}
+
+
+/*business update*/
+@media(max-width: 768px) {
+    .register_bs {
+        padding: 30px;
+    }
+}
+
+.header {
+     padding: 30px 0 30px;
+     background-image: url(../images/b11.jpg);
+     height: 750px;
+     width: 100%;
+     background-position: center center;
+     background-repeat: no-repeat;
+     background-size: cover;
+
+     
+     
+}
+
+.home {
+     padding: 200px 0 200px;
+     text-align: center;
+
+     p {
+         font-family: ubuntu;
+         font-size: 35px;
+     }
+
+    }
