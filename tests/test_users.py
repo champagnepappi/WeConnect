@@ -12,5 +12,5 @@ class UserModelTestCase(unittest.TestCase):
         self.user = {'username': 'Santos', 'password': "123456"}
 
     def test_hello_there(self):
-        response = self.client.get('/')
-        self.assertEqualEqual(response.json(), {'hello': 'world'})
+        response = self.client().get('/')
+        self.assertEqual(response.status_code, 200)
