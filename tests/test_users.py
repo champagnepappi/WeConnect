@@ -10,7 +10,6 @@ class UserModelTestCase(unittest.TestCase):
         """Initialize test varibles"""
         self.app = create_app(config_name="testing")
         self.client = self.app.test_client
-        self.user = {'username': 'Santos', 'password': "123456"}
 
     def test_hello_there(self):
         response = self.client().get('/')
@@ -19,5 +18,11 @@ class UserModelTestCase(unittest.TestCase):
     def test_register_user(self):
         response = self.client().post('/register',data=json.dumps(
             dict(username="kevin",email="me@gmail.com", password="pass")),
+            content_type="application/json")
+        self.assertEqual(response.status, 201)
+
+    def test_login_user(self):
+        response = self.client().post('/login',data=json.dumps(
+             dict(username="kevin", password="pass")),
             content_type="application/json")
         self.assertEqual(response.status, 201)
