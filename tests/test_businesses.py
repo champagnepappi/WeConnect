@@ -17,3 +17,7 @@ class BusinessModelTestCase(unittest.TestCase):
     def test_should_return_one_business(self):
         response = self.client().get('/api/businesses/1')
         self.assertEqual(response.status, 200)
+
+    def test_should_delete_business(self):
+        response = self.client().delete('api/businesses/2')
+        self.assertEqual(response.status, 200)
