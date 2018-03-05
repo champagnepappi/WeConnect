@@ -1,5 +1,6 @@
 import unittest
 import os
+import json
 from app import create_app
 
 class UserModelTestCase(unittest.TestCase):
@@ -14,3 +15,9 @@ class UserModelTestCase(unittest.TestCase):
     def test_hello_there(self):
         response = self.client().get('/')
         self.assertEqual(response.status_code, 200)
+
+    def test_register_user(self):
+        response = self.client().post('/register',data=json.dumps(
+            dict(username="kevin",email="me@gmail.com", password="pass")),
+            content_type="application/json")
+        self.assertEqual(response.status, 201)
