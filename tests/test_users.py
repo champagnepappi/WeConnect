@@ -10,3 +10,7 @@ class UserModelTestCase(unittest.TestCase):
         self.app = create_app(config_name="testing")
         self.client = self.app.test_client
         self.user = {'username': 'Santos', 'password': "123456"}
+
+    def test_hello_there(self):
+        response = self.client.get('/')
+        self.assertEqualEqual(response.json(), {'hello': 'world'})
