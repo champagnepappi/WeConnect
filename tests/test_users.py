@@ -21,8 +21,15 @@ class UserModelTestCase(unittest.TestCase):
             content_type="application/json")
         self.assertEqual(response.status, 201)
 
-    def test_login_user(self):
+    def test_user_login(self):
         response = self.client().post('/login',data=json.dumps(
              dict(username="kevin", password="pass")),
             content_type="application/json")
         self.assertEqual(response.status, 201)
+
+    def test_user_logout(self):
+        response = self.client().post('/api/auth/login',data=json.dumps(
+            dict(username="kevin", password="pass")),
+            content_type="application/json")
+        response = self.client().get('api/auth/logout')
+        self.assertEqual(response.status, 200)
