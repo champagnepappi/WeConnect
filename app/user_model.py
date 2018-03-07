@@ -22,7 +22,7 @@ class User:
             self.user_info['email'] = email
             self.user_info['password'] = password
 
-            self.users.append(self.user_info)
+            return self.users.append(self.user_info)
         else:
             return jsonify({'info': 'Password does not match'})
 
