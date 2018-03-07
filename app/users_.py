@@ -1,11 +1,12 @@
 from flask import Flask, jsonify, request
 from user_model import User
 
+
 app = Flask(__name__)
 user = User()
 # users = []
 
-@app.route('/api/', methods=['GET'])
+@app.route('/api', methods=['GET'])
 def home():
     return jsonify({'message': 'Welcome to Weconnect'})
 
@@ -18,7 +19,7 @@ def register():
 
     my_user = user.register_user(username, email, password, password_confirmation)
     # users.append(my_user)
-    return jsonify(my_user)
+    return jsonify(my_user), 201
 
 @app.route('/users', methods=['GET'])
 def get_users():
