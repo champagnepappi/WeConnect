@@ -7,10 +7,8 @@ class User:
 
     def __init__(self):
          self.users = [
-         {'user_id': 1, 'name': "Kevin", 'email': "K@gmail.com", 'password': 'pas123',
-         'password_confirmation': 'pas123'  },
-         {'user_id': 2, 'name': 'shenin','email': 'jas@gmail.com','password': '1234ab',
-          'password_confirmation': '1234ab'}
+         {'user_id': 1, 'name': "Kevin", 'email': "K@gmail.com", 'password': 'pas123'},
+         {'user_id': 2, 'name': 'shenin','email': 'jas@gmail.com','password': '1234ab'}
                 ]
          self.user_info = {}
          self.user_id = len(self.users)+1
@@ -21,8 +19,9 @@ class User:
             self.user_info['username'] = username
             self.user_info['email'] = email
             self.user_info['password'] = password
+            self.users.append(self.user_info)
 
-            return self.users.append(self.user_info)
+            return self.user_info
         else:
             return jsonify({'info': 'Password does not match'})
 
