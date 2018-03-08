@@ -107,3 +107,11 @@ class UserModelTestCase(unittest.TestCase):
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("Logged out successfully", response_msg["message"])
         self.assertEqual(response.status_code, 200)
+
+    def test_user_trying_to_logout_when_not_logged_in(self):
+        self.client.post('/api/auth/register',data=json.dumps(self.user),
+            content_type="application/json")
+        response = self.client.post('api/auth/logout')
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertEqual("You are not logged in", response_msg["message"])
+        self.assertEqual(response.status_code, 200)
