@@ -115,3 +115,16 @@ class UserModelTestCase(unittest.TestCase):
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("You are not logged in", response_msg["message"])
         self.assertEqual(response.status_code, 200)
+
+    def test_successful_user_password_reset(self):
+        self.client.post('/api/auth/register',data=json.dumps(self.user),
+            content_type="application/json")
+        self.client.post('/api/auth/login',data=json.dumps(
+            dict(email="krafty@gmail.com", password="passwo12")),
+            content_type="application/json")
+        response = self.client.post('/api/auth/reset-password',data=json.dumps(
+            dict(password="12pass",password_confirmation="12pass")),
+            content_type="application/json")
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertEqual("Password successfully reset", response_msg["message"])
+
