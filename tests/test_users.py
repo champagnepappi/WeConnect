@@ -135,4 +135,14 @@ class UserModelTestCase(unittest.TestCase):
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("Email not found", response_msg["message"])
 
+    def test_reseting_password_with_unmatched_passwords(self):
+        self.client.post('/api/auth/register',data=json.dumps(self.user),
+            content_type="application/json")
+        response = self.client.post('/api/auth/reset-password',data=json.dumps(
+            dict(email="krafty@gmail.com",password="12232r",password_confirmation="12pass")),
+            content_type="application/json")
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertEqual("Passwords don't match", response_msg["message"])
+
+
 
