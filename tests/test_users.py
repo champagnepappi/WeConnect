@@ -69,14 +69,27 @@ class UserModelTestCase(unittest.TestCase):
                  password_confirmation="pass12")),
             content_type="application/json")
         response_msg = json.loads(response.data.decode("UTF-8"))
-        self.assertEqual("Passwords does not match", response_msg["message"])
+        self.assertEqual("Password does not match", response_msg["message"])
 
 
     def test_user_login(self):
-        response = self.client.post('/api/auth/login',data=json.dumps(
-             dict(username="kevin", password="pass")),
+        self.client.post('/api/auth/register',data=json.dumps(
+            dict(username="kevin",email="me@gmail.com", password="pass12",
+                 password_confirmation="pass12")),
             content_type="application/json")
-        self.assertEqual(response.status, 201)
+        response = self.client.post('/api/auth/login',data=json.dumps(
+             dict(email="me@gmail.com", password="pass12")),
+            content_type="application/json")
+        self.assertEqual(response.status_code, 200)
+
+    def test_wrong_user_trying_to_login(self):
+        response = self.client.post('/api/auth/login',data=json.dumps(
+             dict(email="k@g.com", password="pass12")),
+            content_type="application/json")
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertEqual("Invalid email/password combination", response_msg["message"])
+        # self.assertEqual(response.status_code, 200)
+
 
     def test_user_logout(self):
         response = self.client.post('/api/auth/logout',data=json.dumps(
