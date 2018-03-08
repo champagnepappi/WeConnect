@@ -92,8 +92,10 @@ class UserModelTestCase(unittest.TestCase):
 
 
     def test_user_logout(self):
-        response = self.client.post('/api/auth/logout',data=json.dumps(
-            dict(username="kevin", password="pass")),
+        self.client.post('/api/auth/login',data=json.dumps(
+            dict(email="d@g.com", password="pass123")),
             content_type="application/json")
-        response = self.client.get('api/auth/logout')
-        self.assertEqual(response.status, 200)
+        response = self.client.post('api/auth/logout')
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertEqual("Logout successful", response_msg["message"])
+        self.assertEqual(response.status_code, 200)
