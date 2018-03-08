@@ -64,6 +64,26 @@ def logout():
     session.pop('email')
     return jsonify({"message": "Logged out successfully"})
 
+@app.route('/api/auth/reset-password', methods=['POST'])
+def reset_password():
+    user = User()
+    email = request.json['email']
+    password = request.json['password']
+    password_confirmation = request.json['password_confirmation']
+    for u in user.users:
+        if email != u['email']:
+            return jsonify({"message": "Email not found"})
+        elif password != password_confirmation:
+            return jsonify({"message": "Passwords don't match"})
+        elif not password:
+            return jsonify({"message": "Password cannot be blank"})
+        elif len(password) < 5:
+            return jsonify({"message": "Password too short"})
+        user.reset_password(email, password, password_confirmation)
+        return jsonify({"message": "Password reset successfully"})
+
+
+
 
 
 
