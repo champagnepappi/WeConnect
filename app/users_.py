@@ -1,31 +1,97 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
+import re
 from user_model import User
 
 
 app = Flask(__name__)
-user = User()
-# users = []
-
+# user = User()
 @app.route('/api', methods=['GET'])
 def home():
     return jsonify({'message': 'Welcome to Weconnect'})
 
-@app.route('/auth/register', methods=['POST'])
+@app.route('/api/auth/register', methods=['POST'])
 def register():
+    """
+    This methods gets the json data from user
+    and uses them to register user with the register_user method
+    """
+    user = User()
     username = request.json['username']
     email  = request.json['email']
     password = request.json['password']
     password_confirmation = request.json['password_confirmation']
 
+    if not username or len(username.strip()) == 0:
+        return jsonify({"message": "Username cannot be blank"})
+    elif not email:
+        return jsonify({"message": "Email cannot be blank"})
+    elif not password:
+        return jsonify({"message": "Password cannot be blank"})
+    elif password != password_confirmation:
+        return jsonify({"message": "Password does not match"})
+    elif not re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
+        return jsonify({"message": "Input a valid email"})
+    elif len(password) < 5:
+        return jsonify({"message": "Password too short"})
+    elif [u for u in user.users if u['email']== email]:
+        return jsonify({"message": "User already exists"})
+
     my_user = user.register_user(username, email, password, password_confirmation)
-    # users.append(my_user)
     return jsonify(my_user), 201
+
+@app.route('/api/auth/login', methods=['POST'])
+def login():
+    user_obj = User()
+    email = request.json['email']
+    password = request.json['password']
+    user = [u for u in user_obj.users if email == u['email'] and password == u['password']]
+    if  not user:
+        return jsonify({"message": "Invalid email/password combination"})
+
+    user_obj.login_user(email, password)
+    session['email'] = email
+    return jsonify({"message": "Login successful"}), 200
+
+@app.route('/api/auth/logout', methods=['POST'])
+def logout():
+    """
+    This method checks if a session exists
+    then logs user out by clearing the session
+    """
+    user_session = session.get('email')
+    if not user_session:
+        return jsonify({"message": "You are not logged in"})
+    session.pop('email')
+    return jsonify({"message": "Logged out successfully"})
+
+@app.route('/api/auth/reset-password', methods=['POST'])
+def reset_password():
+    user = User()
+    email = request.json['email']
+    password = request.json['password']
+    password_confirmation = request.json['password_confirmation']
+    db_user = [u for u in user.users if email == u['email']]
+    if not db_user:
+        return jsonify({"message": "Email not found"})
+    elif password != password_confirmation:
+        return jsonify({"message": "Passwords don't match"})
+    elif not password:
+        return jsonify({"message": "Password cannot be blank"})
+    elif len(password) < 5:
+        return jsonify({"message": "Password too short"})
+    user.reset_password(email, password, password_confirmation)
+    user.user_info['password'] = password
+    return jsonify({"message": "Password successfully reset"})
+
+
+
+
+
 
 @app.route('/users', methods=['GET'])
 def get_users():
+    user = User()
     return jsonify({'users': user.users})
 
 
-# @app.route
-# def register():
 
