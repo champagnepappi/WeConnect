@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask
 
 app = Flask(__name__)
 users = [
@@ -42,3 +42,16 @@ class User:
             else:
                 return "Wrong email/password combination"
 
+    def reset_password(self, email, password, password_confirmation):
+        """
+         This method loops through existing users checking if
+         email exists
+         If email exists and passwords passed match
+         then update the password key with the new password passed
+         and return a success message
+        """
+        for user in users:
+            if email == user['email']:
+                if password == password_confirmation:
+                    self.user_info['password'] = password
+                    return "Password reset successfully"
