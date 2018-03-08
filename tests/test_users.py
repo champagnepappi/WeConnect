@@ -21,6 +21,13 @@ class UserModelTestCase(unittest.TestCase):
             content_type="application/json")
         self.assertEqual(response.status_code, 201)
 
+    def test_user_registering_with_blank_details(self):
+        response = self.client.post('auth/register',data=json.dumps(
+            dict(username="",email="",password="",password_confirmation="")),
+        content_type="application/json")
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertEqual( "Input cannot be blank", response_msg["message"])
+
     def test_user_login(self):
         response = self.client.post('/login',data=json.dumps(
              dict(username="kevin", password="pass")),
