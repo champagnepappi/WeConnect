@@ -1,3 +1,5 @@
+![Travis-ci](https://travis-ci.org/champagnepappi/WeConnect.svg)
+
 # WeConnect
 WeConnect provides a platform that brings businesses
 and individuals together. This platform creates awareness
