@@ -123,7 +123,7 @@ class UserModelTestCase(unittest.TestCase):
             dict(email="krafty@gmail.com", password="passwo12")),
             content_type="application/json")
         response = self.client.post('/api/auth/reset-password',data=json.dumps(
-            dict(password="12pass",password_confirmation="12pass")),
+            dict(email="krafty@gmail.com",password="12pass",password_confirmation="12pass")),
             content_type="application/json")
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("Password successfully reset", response_msg["message"])
