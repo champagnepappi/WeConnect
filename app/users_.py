@@ -49,6 +49,7 @@ def login():
         return jsonify({"message": "Invalid email/password combination"})
 
     user_obj.login_user(email, password)
+    session['email'] = email
     return jsonify({"message": "Login successful"}), 200
 
 @app.route('/api/auth/logout', methods=['POST'])
