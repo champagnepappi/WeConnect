@@ -70,17 +70,18 @@ def reset_password():
     email = request.json['email']
     password = request.json['password']
     password_confirmation = request.json['password_confirmation']
-    for u in user.users:
-        if email != u['email']:
-            return jsonify({"message": "Email not found"})
-        elif password != password_confirmation:
-            return jsonify({"message": "Passwords don't match"})
-        elif not password:
-            return jsonify({"message": "Password cannot be blank"})
-        elif len(password) < 5:
-            return jsonify({"message": "Password too short"})
-        user.reset_password(email, password, password_confirmation)
-        return jsonify({"message": "Password reset successfully"})
+    db_user = [u for u in user.users if email == u['email']]
+    if not db_user:
+        return jsonify({"message": "Email not found"})
+    elif password != password_confirmation:
+        return jsonify({"message": "Passwords don't match"})
+    elif not password:
+        return jsonify({"message": "Password cannot be blank"})
+    elif len(password) < 5:
+        return jsonify({"message": "Password too short"})
+    user.reset_password(email, password, password_confirmation)
+    user.user_info['password'] = password
+    return jsonify({"message": "Password successfully reset"})
 
 
 
