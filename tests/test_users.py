@@ -128,3 +128,11 @@ class UserModelTestCase(unittest.TestCase):
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("Password successfully reset", response_msg["message"])
 
+    def test_non_existing_user_trying_to_reset_password(self):
+        response = self.client.post('/api/auth/reset-password',data=json.dumps(
+            dict(email="mais@gmail.com",password="12pass",password_confirmation="12pass")),
+            content_type="application/json")
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertEqual("Email not found", response_msg["message"])
+
+
