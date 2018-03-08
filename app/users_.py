@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 import re
 from user_model import User
 
@@ -21,7 +21,7 @@ def register():
     password = request.json['password']
     password_confirmation = request.json['password_confirmation']
 
-    if not username:
+    if not username or len(username.strip()) == 0:
         return jsonify({"message": "Username cannot be blank"})
     elif not email:
         return jsonify({"message": "Email cannot be blank"})
@@ -49,7 +49,9 @@ def login():
         return jsonify({"message": "Invalid email/password combination"})
 
     user_obj.login_user(email, password)
-    return jsonify({"message": "Login successful"})
+    return jsonify({"message": "Login successful"}), 200
+
+@app.route('/api/auth/logout', methods=['POST'])
 
 
 
