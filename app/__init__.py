@@ -1,7 +1,7 @@
 # from flask_api import FlaskAPI
 
 from instance.config import app_config
-from app.users_ import app
+from app.api import app
 
 def create_app(config_name):
     app.config.from_object(app_config[config_name])
