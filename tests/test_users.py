@@ -35,6 +35,13 @@ class UserModelTestCase(unittest.TestCase):
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual( "Email cannot be blank", response_msg["message"])
 
+    def test_user_registering_with_blank_password(self):
+        response = self.client.post('auth/register',data=json.dumps(
+            dict(username="fred",email="fred@g.com",password="",password_confirmation="")),
+        content_type="application/json")
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertEqual( "Password cannot be blank", response_msg["message"])
+
     def test_user_registering_with_wrong_email_format(self):
         response = self.client.post('auth/register',data=json.dumps(
             dict(username="jane",email="megmail.com", password="pass12",
