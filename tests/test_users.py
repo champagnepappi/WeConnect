@@ -36,6 +36,19 @@ class UserModelTestCase(unittest.TestCase):
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("Input a valid email", response_msg["message"])
 
+    def test_duplicate_user_registration(self):
+        self.client.post('auth/register',data=json.dumps(
+            dict(username="jane",email="jane@gmail.com", password="pass12",
+                 password_confirmation="pass12")),
+            content_type="application/json")
+        response = self.client.post('auth/register',data=json.dumps(
+            dict(username="jane",email="jane@gmail.com", password="pass12",
+                 password_confirmation="pass12")),
+            content_type="application/json")
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertEqual("User already exists", response_msg["message"])
+
+
     def test_user_login(self):
         response = self.client.post('/login',data=json.dumps(
              dict(username="kevin", password="pass")),
