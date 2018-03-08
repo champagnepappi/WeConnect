@@ -9,6 +9,12 @@ class UserModelTestCase(unittest.TestCase):
         """Initialize test varibles"""
         self.app = create_app(config_name="testing")
         self.client = self.app.test_client()
+        self.user = {
+            'username': "Krafty",
+            'email': "krafty@gmail.com",
+            'password': "passwo12",
+            'password_confirmation': "passwo12"
+        }
 
     def test_hello_there(self):
         response = self.client.get('/api')
@@ -92,10 +98,12 @@ class UserModelTestCase(unittest.TestCase):
 
 
     def test_user_logout(self):
+        self.client.post('/api/auth/register',data=json.dumps(self.user),
+            content_type="application/json")
         self.client.post('/api/auth/login',data=json.dumps(
-            dict(email="d@g.com", password="pass123")),
+            dict(email="krafty@gmail.com", password="passwo12")),
             content_type="application/json")
         response = self.client.post('api/auth/logout')
         response_msg = json.loads(response.data.decode("UTF-8"))
-        self.assertEqual("Logout successful", response_msg["message"])
+        self.assertEqual("Logged out successfully", response_msg["message"])
         self.assertEqual(response.status_code, 200)
