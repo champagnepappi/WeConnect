@@ -6,6 +6,18 @@ and individuals together. This platform creates awareness
 for businesses and gives the users the ability to write 
 reviews about the businesses they have interacted with. 
 
+## Features
+- Register
+- Login
+- Logout
+- Password reset
+- Register Business
+- Update Business
+- Delete Business
+- Search Business
+- Filter searches by location and category
+
+
 ## How to contribute
 
 1. Fork it
