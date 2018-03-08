@@ -20,6 +20,11 @@ def register():
         return jsonify({"message": "Input cannot be blank"})
     elif not re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
         return jsonify({"message": "Input a valid email"})
+    elif len(password) < 5:
+        return jsonify({"message": "Password too short"})
+    elif [u for u in user.users if u['email']== email]:
+        return jsonify({"message": "User already exists"})
+
 
 
     my_user = user.register_user(username, email, password, password_confirmation)
