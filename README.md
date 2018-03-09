@@ -1,4 +1,4 @@
-![Travis-ci](https://travis-ci.org/champagnepappi/WeConnect.svg)
+[![Build Status](https://travis-ci.org/champagnepappi/WeConnect.svg?branch=develop)](https://travis-ci.org/champagnepappi/WeConnect)
 [![Coverage Status](https://coveralls.io/repos/github/champagnepappi/WeConnect/badge.svg?branch=master)](https://coveralls.io/github/champagnepappi/WeConnect?branch=master)
 
 # WeConnect
