@@ -40,6 +40,7 @@ class UserModelTestCase(unittest.TestCase):
         content_type="application/json")
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual( "Email cannot be blank", response_msg["message"])
+        self.assertEqual(response.status_code, 401)
 
     def test_user_registering_with_blank_password(self):
         response = self.client.post('/api/v1/auth/register',data=json.dumps(
@@ -47,6 +48,7 @@ class UserModelTestCase(unittest.TestCase):
         content_type="application/json")
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual( "Password cannot be blank", response_msg["message"])
+        self.assertEqual(response.status_code, 401)
 
     def test_user_registering_with_wrong_email_format(self):
         response = self.client.post('/api/v1/auth/register',data=json.dumps(
@@ -55,6 +57,7 @@ class UserModelTestCase(unittest.TestCase):
             content_type="application/json")
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("Input a valid email", response_msg["message"])
+        self.assertEqual(response.status_code, 401)
 
     def test_duplicate_user_registration(self):
         self.client.post('/api/v1/auth/register',data=json.dumps(
@@ -67,6 +70,7 @@ class UserModelTestCase(unittest.TestCase):
             content_type="application/json")
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("User already exists", response_msg["message"])
+        self.assertEqual(response.status_code, 401)
 
 
     def test_user_registering_with_passwords_not_matching(self):
@@ -76,6 +80,7 @@ class UserModelTestCase(unittest.TestCase):
             content_type="application/json")
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("Password does not match", response_msg["message"])
+        self.assertEqual(response.status_code, 401)
 
 
     def test_user_login(self):
@@ -94,7 +99,7 @@ class UserModelTestCase(unittest.TestCase):
             content_type="application/json")
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("Invalid email/password combination", response_msg["message"])
-        # self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 401)
 
 
     def test_user_logout(self):
@@ -114,7 +119,7 @@ class UserModelTestCase(unittest.TestCase):
         response = self.client.post('api/v1/auth/logout')
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("You are not logged in", response_msg["message"])
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
 
     def test_successful_user_password_reset(self):
         self.client.post('/api/v1/auth/register',data=json.dumps(self.user),
@@ -127,6 +132,7 @@ class UserModelTestCase(unittest.TestCase):
             content_type="application/json")
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("Password successfully reset", response_msg["message"])
+        self.assertEqual(response.status_code, 200)
 
     def test_non_existing_user_trying_to_reset_password(self):
         response = self.client.post('/api/v1/auth/reset-password',data=json.dumps(
@@ -134,6 +140,7 @@ class UserModelTestCase(unittest.TestCase):
             content_type="application/json")
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("Email not found", response_msg["message"])
+        self.assertEqual(response.status_code, 401)
 
     def test_reseting_password_with_unmatched_passwords(self):
         self.client.post('/api/v1/auth/register',data=json.dumps(self.user),
@@ -143,6 +150,7 @@ class UserModelTestCase(unittest.TestCase):
             content_type="application/json")
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("Passwords don't match", response_msg["message"])
+        self.assertEqual(response.status_code, 401)
 
     def test_reseting_password_with_short_passwords(self):
         self.client.post('/api/v1/auth/register',data=json.dumps(self.user),
@@ -152,5 +160,6 @@ class UserModelTestCase(unittest.TestCase):
             content_type="application/json")
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertEqual("Password too short", response_msg["message"])
+        self.assertEqual(response.status_code, 401)
 
 

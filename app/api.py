@@ -22,19 +22,19 @@ def register():
     password_confirmation = request.json['password_confirmation']
 
     if not username or len(username.strip()) == 0:
-        return jsonify({"message": "Username cannot be blank"})
+        return jsonify({"message": "Username cannot be blank"}),401
     elif not email:
-        return jsonify({"message": "Email cannot be blank"})
+        return jsonify({"message": "Email cannot be blank"}),401
     elif not password:
-        return jsonify({"message": "Password cannot be blank"})
+        return jsonify({"message": "Password cannot be blank"}), 401
     elif password != password_confirmation:
-        return jsonify({"message": "Password does not match"})
+        return jsonify({"message": "Password does not match"}), 401
     elif not re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
-        return jsonify({"message": "Input a valid email"})
+        return jsonify({"message": "Input a valid email"}), 401
     elif len(password) < 5:
-        return jsonify({"message": "Password too short"})
+        return jsonify({"message": "Password too short"}), 401
     elif [u for u in user.users if u['email']== email]:
-        return jsonify({"message": "User already exists"})
+        return jsonify({"message": "User already exists"}), 401
 
     my_user = user.register_user(username, email, password, password_confirmation)
     return jsonify(my_user), 201
@@ -52,7 +52,7 @@ def login():
     password = request.json['password']
     user = [u for u in user_obj.users if email == u['email'] and password == u['password']]
     if  not user:
-        return jsonify({"message": "Invalid email/password combination"})
+        return jsonify({"message": "Invalid email/password combination"}), 401
 
     user_obj.login_user(email, password)
     session['email'] = email
@@ -66,9 +66,9 @@ def logout():
     """
     user_session = session.get('email')
     if not user_session:
-        return jsonify({"message": "You are not logged in"})
+        return jsonify({"message": "You are not logged in"}), 400
     session.pop('email')
-    return jsonify({"message": "Logged out successfully"})
+    return jsonify({"message": "Logged out successfully"}), 200
 
 @app.route('/api/v1/auth/reset-password', methods=['POST'])
 def reset_password():
@@ -83,16 +83,16 @@ def reset_password():
     password_confirmation = request.json['password_confirmation']
     db_user = [u for u in user.users if email == u['email']]
     if not db_user:
-        return jsonify({"message": "Email not found"})
+        return jsonify({"message": "Email not found"}), 401
     elif password != password_confirmation:
-        return jsonify({"message": "Passwords don't match"})
+        return jsonify({"message": "Passwords don't match"}), 401
     elif not password:
-        return jsonify({"message": "Password cannot be blank"})
+        return jsonify({"message": "Password cannot be blank"}), 401
     elif len(password) < 5:
-        return jsonify({"message": "Password too short"})
+        return jsonify({"message": "Password too short"}), 401
     user.reset_password(email, password, password_confirmation)
     user.user_info['password'] = password
-    return jsonify({"message": "Password successfully reset"})
+    return jsonify({"message": "Password successfully reset"}), 200
 
 
 
