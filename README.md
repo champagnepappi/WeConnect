@@ -28,10 +28,10 @@ purposes
    You can do this by running `pip -r install requirements.txt`
 
 3. Test the API endpoints by making the following requests
-   register user (`/api/v1/auth/register`)
-   login user (`/api/v1/auth/login`)
-   logout user (`/api/v1/auth/logout`)
-   reset user password (`/api/v1/auth/register`)
+   - register user (`/api/v1/auth/register`)
+   - login user (`/api/v1/auth/login`)
+   - logout user (`/api/v1/auth/logout`)
+   - reset user password (`/api/v1/auth/register`)
 
 
 ## How to contribute
