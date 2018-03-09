@@ -8,7 +8,7 @@ install:
 
 #command to run tests
 script: 
-    - nosetests tests/ 
+    - nosetests tests/test_users.py
 after_success:
     - coveralls
 
