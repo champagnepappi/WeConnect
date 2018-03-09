@@ -1,4 +1,5 @@
 ![Travis-ci](https://travis-ci.org/champagnepappi/WeConnect.svg)
+[![Coverage Status](https://coveralls.io/repos/github/champagnepappi/WeConnect/badge.svg?branch=master)](https://coveralls.io/github/champagnepappi/WeConnect?branch=master)
 
 # WeConnect
 WeConnect provides a platform that brings businesses
