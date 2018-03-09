@@ -1,10 +1,7 @@
 from flask import Flask
 
 app = Flask(__name__)
-users = [
-    {'user_id': 1, 'name': "Kevin", 'email': "K@gmail.com", 'password': 'pas123'},
-    {'user_id': 2, 'name': 'shenin','email': 'jas@gmail.com','password': '1234ab'}
-]
+users = []
 
 class User:
     """Demonstrates methods to manipulate user data"""
@@ -27,7 +24,6 @@ class User:
         self.user_info['password'] = password
         users.append(self.user_info)
         return self.user_info
-
 
     def login_user(self, email, password):
         """

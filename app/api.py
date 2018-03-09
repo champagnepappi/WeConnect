@@ -5,11 +5,11 @@ from user_model import User
 
 app = Flask(__name__)
 # user = User()
-@app.route('/api', methods=['GET'])
+@app.route('/api/v1/', methods=['GET'])
 def home():
     return jsonify({'message': 'Welcome to Weconnect'})
 
-@app.route('/api/auth/register', methods=['POST'])
+@app.route('/api/v1/auth/register', methods=['POST'])
 def register():
     """
     This methods gets the json data from user
@@ -39,8 +39,14 @@ def register():
     my_user = user.register_user(username, email, password, password_confirmation)
     return jsonify(my_user), 201
 
-@app.route('/api/auth/login', methods=['POST'])
+@app.route('/api/v1/auth/login', methods=['POST'])
 def login():
+    """
+    This method checks if user exists in the users list
+    then checks if email and password passed matches the ones
+    for the list user
+    then logs the user in and creates a session
+    """
     user_obj = User()
     email = request.json['email']
     password = request.json['password']
@@ -52,7 +58,7 @@ def login():
     session['email'] = email
     return jsonify({"message": "Login successful"}), 200
 
-@app.route('/api/auth/logout', methods=['POST'])
+@app.route('/api/v1/auth/logout', methods=['POST'])
 def logout():
     """
     This method checks if a session exists
@@ -64,8 +70,13 @@ def logout():
     session.pop('email')
     return jsonify({"message": "Logged out successfully"})
 
-@app.route('/api/auth/reset-password', methods=['POST'])
+@app.route('/api/v1/auth/reset-password', methods=['POST'])
 def reset_password():
+    """
+    This method checks if user first exists
+    then resets the old password and returns a success
+    message
+    """
     user = User()
     email = request.json['email']
     password = request.json['password']
@@ -88,7 +99,7 @@ def reset_password():
 
 
 
-@app.route('/users', methods=['GET'])
+@app.route('/api/v1/users', methods=['GET'])
 def get_users():
     user = User()
     return jsonify({'users': user.users})
