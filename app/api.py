@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, session
 import re
-from user_model import User
+from app.user_model import User
 
 
 app = Flask(__name__)
@@ -36,7 +36,7 @@ def register():
     elif [u for u in user.users if u['email']== email]:
         return jsonify({"message": "User already exists"}), 401
 
-    my_user = user.register_user(username, email, password, password_confirmation)
+    user.register_user(username, email, password, password_confirmation)
     return jsonify({"message": "Registration successful"}), 201
 
 @app.route('/api/v1/auth/login', methods=['POST'])
