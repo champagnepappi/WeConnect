@@ -18,6 +18,15 @@ reviews about the businesses they have interacted with.
 - Search Business
 - Filter searches by location and category
 
+## Getting started
+These instructions will get your project up and running for development and testing
+purposes
+1. Create the virtual environment
+   activate the virtual environment `source myenv/bin.activate`
+
+2. Install project dependencies
+   You can do this by running `pip -r install requirements.txt`
+
 
 ## How to contribute
 
