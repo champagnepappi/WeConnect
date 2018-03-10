@@ -19,11 +19,11 @@ class BusinessModelTestCase(unittest.TestCase):
         self.assertEqual(response.status, 200)
 
     def test_should_delete_business(self):
-        response = self.client().delete('api/businesses/2')
+        response = self.client().delete('/api/businesses/2')
         self.assertEqual(response.status, 200)
 
     def test_should_update_a_business(self):
-        response = self.client().put('api/businesses/3', data=json.dumps(
+        response = self.client().put('/api/businesses/3', data=json.dumps(
             dict(business_title="Johns hardware", description="This is just some hardware")),
             content_type="application/json" )
         self.assertEqual(response.status, 201)
