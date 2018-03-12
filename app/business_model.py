@@ -7,3 +7,16 @@ class Business:
     """
     def __init__(self):
         self.businesses = businesses
+        self.bs = {}
+
+    def create_business(self,title,description, category,location):
+        """
+        This method takes business input from user and
+        appends the information to business list
+        """
+        self.bs['title'] = title
+        self.bs['location'] = location
+        self.bs['category'] = category
+        self.bs['description'] = description
+        businesses.append(self.bs)
+        return self.bs
