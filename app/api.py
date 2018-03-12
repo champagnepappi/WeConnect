@@ -112,6 +112,9 @@ def register_business():
     description = request.json['description']
     category = request.json['category']
 
+    if not title or len(title.strip()) == 0:
+        return jsonify({"message": "Title cannot be blank"})
+
     business.create_business(title, location, description, category)
     return jsonify({"message": "Business created successfully"})
 
