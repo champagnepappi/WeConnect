@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, session
 import re
 from app.user_model import User
+from app.business_model import Business
 
 
 app = Flask(__name__)
@@ -94,15 +95,20 @@ def reset_password():
     user.user_info['password'] = password
     return jsonify({"message": "Password successfully reset"}), 200
 
-
-
-
-
-
 @app.route('/api/v1/users', methods=['GET'])
 def get_users():
     user = User()
     return jsonify({'users': user.users})
 
-
+@app.route('/api/v1/businesses', methods=['POST'])
+def register_business():
+    """
+    This method registers a business by getting
+    business details inform of json
+    """
+    business = Business()
+    title = request.json['title']
+    location = request.json['location']
+    description = request.json['description']
+    category = request.json['category']
 
