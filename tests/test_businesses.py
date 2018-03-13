@@ -48,6 +48,15 @@ class BusinessModelTestCase(unittest.TestCase):
         self.assertEqual( "Category cannot be blank", response_msg["message"])
         self.assertEqual(response.status_code, 400)
 
+    def test_duplicate_business_creation(self):
+        self.client.post('/api/v1/businesses', data=json.dumps(
+        self.business), content_type="application/json")
+        response =self.client.post('/api/v1/businesses', data=json.dumps(
+        self.business), content_type="application/json")
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertEqual( "Business already exists", response_msg["message"])
+        self.assertEqual(response.status_code, 400)
+
     def test_should_return_all_the_businesses(self):
         response = self.client.get('/api/businesses')
         self.assertEqual(response.status, 200)
