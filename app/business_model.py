@@ -14,6 +14,7 @@ class Business:
         This method takes business input from user and
         appends the information to business list
         """
+        self.bs['bs_id'] = len(self.businesses)+1
         self.bs['title'] = title
         self.bs['location'] = location
         self.bs['category'] = category
