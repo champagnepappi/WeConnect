@@ -116,5 +116,5 @@ def register_business():
         return jsonify({"message": "Title cannot be blank"})
 
     business.create_business(title, location, description, category)
-    return jsonify({"message": "Business created successfully"})
+    return jsonify({"message": "Business created successfully"}), 201
 
