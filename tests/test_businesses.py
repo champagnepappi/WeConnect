@@ -28,6 +28,8 @@ class BusinessModelTestCase(unittest.TestCase):
         response = self.client.post('/api/v1/businesses',data=json.dumps(
         dict(title="Creft designs", location="", description="lorem ipsum",
         category="Design")), content_type="application/json")
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertEqual( "Location cannot be blank", response_msg["message"])
         self.assertEqual(response.status_code, 400)
 
     def test_business_creation_with_blank_description(self):
