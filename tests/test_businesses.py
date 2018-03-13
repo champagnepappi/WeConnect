@@ -36,6 +36,8 @@ class BusinessModelTestCase(unittest.TestCase):
         response = self.client.post('/api/v1/businesses',data=json.dumps(
         dict(title="Tcom clinic", location="Eldoret", description="",
         category="Medicine")), content_type="application/json")
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertEqual( "Description cannot be blank", response_msg["message"])
         self.assertEqual(response.status_code, 400)
 
     def test_should_return_all_the_businesses(self):
