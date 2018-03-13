@@ -8,6 +8,8 @@ class BusinessModelTestCase(unittest.TestCase):
         """Initialize test variables"""
         self.app = create_app(config_name="testing")
         self.client = self.app.test_client
+        self.business = {"title": "Kenya wears", "location": "Nairobi",
+        "description": "Some description here"}
 
     def test_should_return_all_the_businesses(self):
         response = self.client().get('/api/businesses')
