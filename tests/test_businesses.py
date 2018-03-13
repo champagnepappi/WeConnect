@@ -9,7 +9,7 @@ class BusinessModelTestCase(unittest.TestCase):
         self.app = create_app(config_name="testing")
         self.client = self.app.test_client()
         self.business = {"title": "Kenya wears", "location": "Nairobi",
-        "description": "Some description here"}
+        "description": "Some description here", "category": "Fashion"}
 
     def test_successful_business_creation(self):
         response =self.client.post('/api/v1/businesses', data=json.dumps(
@@ -17,19 +17,19 @@ class BusinessModelTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_should_return_all_the_businesses(self):
-        response = self.client().get('/api/businesses')
+        response = self.client.get('/api/businesses')
         self.assertEqual(response.status, 200)
 
     def test_should_return_one_business(self):
-        response = self.client().get('/api/businesses/1')
+        response = self.client.get('/api/businesses/1')
         self.assertEqual(response.status, 200)
 
     def test_should_delete_business(self):
-        response = self.client().delete('/api/businesses/2')
+        response = self.client.delete('/api/businesses/2')
         self.assertEqual(response.status, 200)
 
     def test_should_update_a_business(self):
-        response = self.client().put('/api/businesses/3', data=json.dumps(
+        response = self.client.put('/api/businesses/3', data=json.dumps(
             dict(business_title="Johns hardware", description="This is just some hardware")),
             content_type="application/json" )
         self.assertEqual(response.status, 201)
