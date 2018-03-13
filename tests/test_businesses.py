@@ -7,9 +7,14 @@ class BusinessModelTestCase(unittest.TestCase):
     def setUp(self):
         """Initialize test variables"""
         self.app = create_app(config_name="testing")
-        self.client = self.app.test_client
+        self.client = self.app.test_client()
         self.business = {"title": "Kenya wears", "location": "Nairobi",
         "description": "Some description here"}
+
+    def test_successful_business_creation(self):
+        response =self.client.post('/api/v1/businesses', data=json.dumps(
+        self.business), content_type="application/json")
+        self.assertEqual(response.status_code, 201)
 
     def test_should_return_all_the_businesses(self):
         response = self.client().get('/api/businesses')
