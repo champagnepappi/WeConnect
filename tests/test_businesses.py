@@ -22,6 +22,12 @@ class BusinessModelTestCase(unittest.TestCase):
         category="Consultancy")), content_type="application/json")
         self.assertEqual(response.status_code, 400)
 
+    def test_business_creation_with_blank_location(self):
+        response = self.client.post('/api/v1/businesses',data=json.dumps(
+        dict(title="Creft designs", location="", description="lorem ipsum",
+        category="Design")), content_type="application/json")
+        self.assertEqual(response.status_code, 400)
+
     def test_should_return_all_the_businesses(self):
         response = self.client.get('/api/businesses')
         self.assertEqual(response.status, 200)
