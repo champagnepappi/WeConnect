@@ -70,7 +70,8 @@ class BusinessModelTestCase(unittest.TestCase):
         self.assertEqual(response.status, 200)
 
     def test_should_update_a_business(self):
-        response = self.client.put('/api/businesses/3', data=json.dumps(
-            dict(business_title="Johns hardware", description="This is just some hardware")),
+        response = self.client.put('/api/v1/businesses/3', data=json.dumps(
+            dict(title="Johns hardware", location="Mombasa",
+            description="This is just some hardware", category="Mechanical")),
             content_type="application/json" )
         self.assertEqual(response.status, 201)
