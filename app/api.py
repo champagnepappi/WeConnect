@@ -146,4 +146,4 @@ def update_business(businessid):
     bs[0]['category'] = request.json['category']
     bs[0]['location'] = request.json['location']
     bs[0]['description'] = request.json['description']
-    return jsonify({"message": "Business updated successfully" })
+    return jsonify({"message": "Business updated successfully" }), 200
