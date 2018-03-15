@@ -134,3 +134,16 @@ def retrieve_businesses():
     business = Business()
     return jsonify({'businesses': business.businesses}), 200
 
+@app.route('/api/v1/businesses/<int:businessid>', methods=['PUT'])
+def update_business(businessid):
+    """
+     This method updates a business whose Id is
+     passed on the route
+    """
+    business = Business()
+    bs = [bs for bs in business.businesses if bs['bs_id'] == businessid]
+    bs[0]['title'] = request.json['title']
+    bs[0]['category'] = request.json['category']
+    bs[0]['location'] = request.json['location']
+    bs[0]['description'] = request.json['description']
+    return jsonify({"message": "Business updated successfully" })
