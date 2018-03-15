@@ -58,8 +58,8 @@ class BusinessModelTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_should_return_all_the_businesses(self):
-        response = self.client.get('/api/businesses')
-        self.assertEqual(response.status, 200)
+        response = self.client.get('/api/v1/businesses')
+        self.assertEqual(response.status_code, 200)
 
     def test_should_return_one_business(self):
         response = self.client.get('/api/businesses/1')
