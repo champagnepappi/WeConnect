@@ -126,3 +126,11 @@ def register_business():
     business.create_business(title, location, description, category)
     return jsonify({"message": "Business created successfully"}), 201
 
+@app.route('/api/v1/businesses', methods=['GET'])
+def retrieve_businesses():
+    """
+     This methods retrieves all the businesses registered
+    """
+    business = Business()
+    return jsonify({'businesses': business.businesses}), 200
+
