@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, session
 import re
 from app.user_model import User
+from app.business_model import Business
 
 
 app = Flask(__name__)
@@ -94,15 +95,55 @@ def reset_password():
     user.user_info['password'] = password
     return jsonify({"message": "Password successfully reset"}), 200
 
-
-
-
-
-
 @app.route('/api/v1/users', methods=['GET'])
 def get_users():
     user = User()
     return jsonify({'users': user.users})
 
+@app.route('/api/v1/businesses', methods=['POST'])
+def register_business():
+    """
+    This method registers a business by getting
+    business details inform of json
+    """
+    business = Business()
+    title = request.json['title']
+    location = request.json['location']
+    description = request.json['description']
+    category = request.json['category']
 
+    if not title or len(title.strip()) == 0:
+        return jsonify({"message": "Title cannot be blank"}), 400
+    elif not location or len(location.strip()) == 0:
+        return jsonify({"message": "Location cannot be blank"}), 400
+    elif not description or len(description.strip()) == 0:
+        return jsonify({"message": "Description cannot be blank"}), 400
+    elif not category or len(category.strip()) == 0:
+        return jsonify({"message": "Category cannot be blank"}), 400
+    elif [bs for bs in business.businesses if bs['title'] == title]:
+        return jsonify({"message": "Business already exists"}), 400
 
+    business.create_business(title, location, description, category)
+    return jsonify({"message": "Business created successfully"}), 201
+
+@app.route('/api/v1/businesses', methods=['GET'])
+def retrieve_businesses():
+    """
+     This methods retrieves all the businesses registered
+    """
+    business = Business()
+    return jsonify({'businesses': business.businesses}), 200
+
+@app.route('/api/v1/businesses/<int:businessid>', methods=['PUT'])
+def update_business(businessid):
+    """
+     This method updates a business whose Id is
+     passed on the route
+    """
+    business = Business()
+    bs = [bs for bs in business.businesses if bs['bs_id'] == businessid]
+    bs[0]['title'] = request.json['title']
+    bs[0]['category'] = request.json['category']
+    bs[0]['location'] = request.json['location']
+    bs[0]['description'] = request.json['description']
+    return jsonify({"message": "Business updated successfully" }), 200
